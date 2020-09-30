@@ -10,9 +10,11 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [blogTitle, setBlogTitle] = useState('');
-  const [blogAuthor, setBlogAuthor] = useState('');
-  const [blogUrl, setBlogUrl] = useState('');
+  const [blog, setBlog] = useState({
+    title: '',
+    author: '',
+    url: '',
+  });
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -60,15 +62,11 @@ const App = () => {
   const handleBlogCreation = async (event) => {
     event.preventDefault();
 
-    const blog = {
-      title: blogTitle,
-      author: blogAuthor,
-      url: blogUrl,
-    };
-
-    setBlogTitle('');
-    setBlogAuthor('');
-    setBlogUrl('');
+    setBlog({
+      title: '',
+      author: '',
+      url: '',
+    });
 
     try {
       const returnedBlog = await blogService.create(blog);
@@ -104,12 +102,8 @@ const App = () => {
       <h2>Create new</h2>
 
       <BlogForm handleBlogCreation={handleBlogCreation}
-                blogTitle={blogTitle}
-                setBlogTitle={setBlogTitle}
-                blogAuthor={blogAuthor}
-                setBlogAuthor={setBlogAuthor}
-                blogUrl={blogUrl}
-                setBlogUrl={setBlogUrl}
+                blog={blog}
+                setBlog={setBlog}
       />
 
       {blogs.map(blog =>
