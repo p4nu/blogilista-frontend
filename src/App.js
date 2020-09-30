@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import loginService from './services/login';
+import BlogForm from './components/BlogForm';
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -118,39 +119,14 @@ const App = () => {
 
       <h2>Create new</h2>
 
-      <form onSubmit={handleBlogCreation}>
-        <div>
-          Title:
-
-          <input type="text"
-                 value={blogTitle}
-                 name="BlogTitle"
-                 onChange={({ target }) => setBlogTitle(target.value)}
-          />
-        </div>
-
-        <div>
-          Author:
-
-          <input type="text"
-                 value={blogAuthor}
-                 name="BlogAuthor"
-                 onChange={({ target }) => setBlogAuthor(target.value)}
-          />
-        </div>
-
-        <div>
-          Url:
-
-          <input type="text"
-                 value={blogUrl}
-                 name="BlogUrl"
-                 onChange={({ target }) => setBlogUrl(target.value)}
-          />
-        </div>
-
-        <button type="submit">Create</button>
-      </form>
+      <BlogForm handleBlogCreation={handleBlogCreation}
+                blogTitle={blogTitle}
+                setBlogTitle={setBlogTitle}
+                blogAuthor={blogAuthor}
+                setBlogAuthor={setBlogAuthor}
+                blogUrl={blogUrl}
+                setBlogUrl={setBlogUrl}
+      />
 
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
