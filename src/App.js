@@ -15,6 +15,15 @@ const App = () => {
     )
   }, []);
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogListAppUser');
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+    }
+  }, []);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -22,6 +31,9 @@ const App = () => {
         username, password,
       });
 
+      window.localStorage.setItem(
+        'loggedBlogListAppUser', JSON.stringify(user)
+      );
       setUser(user);
       setUsername('');
       setPassword('');
@@ -32,6 +44,9 @@ const App = () => {
 
   const handleLogout = () => {
     setUser(null);
+    window.localStorage.removeItem(
+      'loggedBlogListAppUser'
+    );
   };
 
   if (user === null) {
