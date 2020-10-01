@@ -7,9 +7,15 @@ const Blog = ({ blog }) => {
     setViewInfo(!viewInfo);
   }
 
+  const addLike = () => {
+
+  }
+
   if (!viewInfo) {
     return (
-      <div className='blog'>
+      <div className='blog'
+           onClick={toggleInfoVisibility}
+      >
         {blog.title} {blog.author}
 
         <button onClick={toggleInfoVisibility}>View</button>
@@ -18,7 +24,9 @@ const Blog = ({ blog }) => {
   }
 
   return (
-    <div className='blog'>
+    <div className='blog'
+         onClick={toggleInfoVisibility}
+    >
       {blog.title} {blog.author}
 
       <button onClick={toggleInfoVisibility}>Hide</button>
@@ -29,7 +37,7 @@ const Blog = ({ blog }) => {
       <br/>
       Likes: {blog.likes}
 
-      <button>Like</button>
+      <button onClick={addLike}>Like</button>
 
       <br/>
       {blog.author}
