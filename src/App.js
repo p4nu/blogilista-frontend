@@ -78,6 +78,27 @@ const App = () => {
     }, 5000);
   }
 
+  const handleLikeAddition = async (blog, blogId) => {
+    try {
+      const returnedBlog = await blogService.update(blog, blogId);
+
+      const updatedBlogs = blogs.map(blog => {
+        if (returnedBlog.id === blog.id) {
+          return returnedBlog;
+        }
+        return blog;
+      });
+
+      setBlogs(updatedBlogs);
+    } catch (exception) {
+      setMessage(exception.message);
+
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    }
+  };
+
   if (user === null) {
     return (
       <div>
@@ -115,8 +136,8 @@ const App = () => {
         .sort((a, b) => b.likes - a.likes)
         .map(blog =>
         <Blog key={blog.id}
-              pBlog={blog}
-              setMessage={setMessage}
+              blog={blog}
+              handleLikeAddition={handleLikeAddition}
         />
       )}
     </div>

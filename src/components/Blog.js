@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-import blogService from '../services/blogs';
 
-const Blog = ({ pBlog, setMessage }) => {
+const Blog = ({ blog, handleLikeAddition }) => {
   const [viewInfo, setViewInfo] = useState(false);
-  const [blog, setBlog] = useState(pBlog);
 
   const toggleInfoVisibility = () => {
     setViewInfo(!viewInfo);
@@ -18,17 +16,7 @@ const Blog = ({ pBlog, setMessage }) => {
       url: blog.url,
     };
 
-    try {
-      const returnedBlog = await blogService.update(updatedBlog, blog.id);
-
-      setBlog(returnedBlog);
-    } catch (exception) {
-      setMessage(exception.message);
-
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
-    }
+    handleLikeAddition(updatedBlog, blog.id);
   };
 
   if (!viewInfo) {
