@@ -93,6 +93,10 @@ const App = () => {
         setMessage(null);
       }, 5000);
     }
+
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
   }
 
   if (user === null) {
