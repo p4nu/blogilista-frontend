@@ -82,9 +82,16 @@ const App = () => {
     try {
       const returnedBlog = await blogService.update(blog, blogId);
 
+      const formattedBlog = {
+        ...returnedBlog,
+        user: {
+          ...user,
+        },
+      };
+
       const updatedBlogs = blogs.map(blog => {
         if (returnedBlog.id === blog.id) {
-          return returnedBlog;
+          return formattedBlog;
         }
         return blog;
       });
