@@ -7,7 +7,7 @@ const Blog = ({ blog, handleLikeAddition }) => {
     setViewInfo(!viewInfo);
   }
 
-  const addLike = async () => {
+  const addLike = () => {
     const updatedBlog = {
       user: blog.user.id,
       likes: blog.likes + 1,
