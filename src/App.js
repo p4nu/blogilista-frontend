@@ -12,11 +12,6 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [blog, setBlog] = useState({
-    title: '',
-    author: '',
-    url: '',
-  });
   const [message, setMessage] = useState(null);
   const formRef = useRef();
 
@@ -67,31 +62,15 @@ const App = () => {
     );
   };
 
-  const handleBlogCreation = async (event) => {
-    event.preventDefault();
-
-    setBlog({
-      title: '',
-      author: '',
-      url: '',
-    });
-
+  const handleBlogCreation = async (blog) => {
     try {
       const returnedBlog = await blogService.create(blog);
       setBlogs(blogs.concat(returnedBlog));
       formRef.current.toggleVisibility();
 
       setMessage(`A new blog ${blog.title} by ${blog.author} added!`);
-
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
     } catch (exception) {
       setMessage(exception.message);
-
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
     }
 
     setTimeout(() => {
@@ -129,10 +108,7 @@ const App = () => {
       </div>
 
       <Toggleable buttonLabel='New note' ref={formRef}>
-        <BlogForm handleBlogCreation={handleBlogCreation}
-                  blog={blog}
-                  setBlog={setBlog}
-        />
+        <BlogForm createBlog={handleBlogCreation}/>
       </Toggleable>
 
       {blogs.map(blog =>

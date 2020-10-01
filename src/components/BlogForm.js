@@ -1,45 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const BlogForm = ({handleBlogCreation, blog, setBlog}) => {
-  const handleTitleChange = ({ target }) => {
-    const newBlog = {
-      ...blog,
-      title: target.value,
-    };
+const BlogForm = ({createBlog}) => {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [url, setUrl] = useState('');
 
-    setBlog(newBlog);
-  }
+  const addBlog = (event) => {
+    event.preventDefault();
 
-  const handleAuthorChange = ({ target }) => {
-    const newBlog = {
-      ...blog,
-      author: target.value,
-    };
+    createBlog({
+      title, author, url
+    });
 
-    setBlog(newBlog);
-  }
-
-  const handleUrlChange = ({ target }) => {
-    const newBlog = {
-      ...blog,
-      url: target.value,
-    };
-
-    setBlog(newBlog);
-  }
+    setTitle('');
+    setAuthor('');
+    setUrl('');
+  };
 
   return (
     <>
       <h2>Create new</h2>
 
-      <form onSubmit={handleBlogCreation}>
+      <form onSubmit={addBlog}>
         <div>
           Title:
 
           <input type="text"
-                 value={blog.title}
+                 value={title}
                  name="BlogTitle"
-                 onChange={handleTitleChange}
+                 onChange={event => setTitle(event.target.value)}
           />
         </div>
 
@@ -47,9 +36,9 @@ const BlogForm = ({handleBlogCreation, blog, setBlog}) => {
           Author:
 
           <input type="text"
-                 value={blog.author}
+                 value={author}
                  name="BlogAuthor"
-                 onChange={handleAuthorChange}
+                 onChange={event => setAuthor(event.target.value)}
           />
         </div>
 
@@ -57,9 +46,9 @@ const BlogForm = ({handleBlogCreation, blog, setBlog}) => {
           Url:
 
           <input type="text"
-                 value={blog.url}
+                 value={url}
                  name="BlogUrl"
-                 onChange={handleUrlChange}
+                 onChange={event => setUrl(event.target.value)}
           />
         </div>
 
