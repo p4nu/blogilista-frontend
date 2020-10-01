@@ -31,6 +31,14 @@ const App = () => {
     }
   }, []);
 
+  const showMessage = (message, timeout = 5000) => {
+    setMessage(message);
+
+    setTimeout(() => {
+      setMessage(null);
+    }, timeout);
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -47,11 +55,7 @@ const App = () => {
       setUsername('');
       setPassword('');
     } catch (exception) {
-      setMessage('wrong credentials');
-
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
+      showMessage('wrong credentials');
     }
   }
 
@@ -68,14 +72,10 @@ const App = () => {
       setBlogs(blogs.concat(returnedBlog));
       formRef.current.toggleVisibility();
 
-      setMessage(`A new blog ${blog.title} by ${blog.author} added!`);
+      showMessage(`A new blog ${blog.title} by ${blog.author} added!`);
     } catch (exception) {
-      setMessage(exception.message);
+      showMessage(exception.message);
     }
-
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000);
   }
 
   const handleLikeAddition = async (blog, blogId) => {
@@ -91,11 +91,7 @@ const App = () => {
 
       setBlogs(updatedBlogs);
     } catch (exception) {
-      setMessage(exception.message);
-
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
+      showMessage(exception.message);
     }
   };
 
@@ -108,14 +104,10 @@ const App = () => {
       });
 
       setBlogs(updatedBlogs);
-      setMessage(`${removableBlog.title} by ${removableBlog.author} deleted successfully!`);
+      showMessage(`${removableBlog.title} by ${removableBlog.author} deleted successfully!`);
     } catch (exception) {
-      setMessage(exception.message);
+      showMessage(exception.message);
     }
-
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000);
   }
 
   if (user === null) {
