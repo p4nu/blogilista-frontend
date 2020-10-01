@@ -4,3 +4,9 @@
   font-size: 20px;
   margin-bottom: 12px;
 }
+
+.blog {
+  padding: 5px 2px;
+  border: 1px black solid;
+  margin: 5px 0 5px 0;
+}
