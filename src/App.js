@@ -112,7 +112,10 @@ const App = () => {
       </Toggleable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id}
+              pBlog={blog}
+              setMessage={setMessage}
+        />
       )}
     </div>
   );

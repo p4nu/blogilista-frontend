@@ -1,21 +1,39 @@
 import React, {useState} from 'react'
+import blogService from '../services/blogs';
 
-const Blog = ({ blog }) => {
+const Blog = ({ pBlog, setMessage }) => {
   const [viewInfo, setViewInfo] = useState(false);
+  const [blog, setBlog] = useState(pBlog);
 
   const toggleInfoVisibility = () => {
     setViewInfo(!viewInfo);
   }
 
-  const addLike = () => {
+  const addLike = async () => {
+    const updatedBlog = {
+      user: blog.user.id,
+      likes: blog.likes + 1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url,
+    };
 
-  }
+    try {
+      const returnedBlog = await blogService.update(updatedBlog, blog.id);
+
+      setBlog(returnedBlog);
+    } catch (exception) {
+      setMessage(exception.message);
+
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    }
+  };
 
   if (!viewInfo) {
     return (
-      <div className='blog'
-           onClick={toggleInfoVisibility}
-      >
+      <div className='blog'>
         {blog.title} {blog.author}
 
         <button onClick={toggleInfoVisibility}>View</button>
@@ -24,9 +42,7 @@ const Blog = ({ blog }) => {
   }
 
   return (
-    <div className='blog'
-         onClick={toggleInfoVisibility}
-    >
+    <div className='blog'>
       {blog.title} {blog.author}
 
       <button onClick={toggleInfoVisibility}>Hide</button>
