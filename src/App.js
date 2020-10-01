@@ -99,6 +99,25 @@ const App = () => {
     }
   };
 
+  const handleBlogRemoval = async (removableBlog) => {
+    try {
+      await blogService.remove(removableBlog);
+
+      const updatedBlogs = blogs.filter(blog => {
+        return blog.id !== removableBlog.id;
+      });
+
+      setBlogs(updatedBlogs);
+      setMessage(`${removableBlog.title} by ${removableBlog.author} deleted successfully!`);
+    } catch (exception) {
+      setMessage(exception.message);
+    }
+
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  }
+
   if (user === null) {
     return (
       <div>
@@ -138,6 +157,8 @@ const App = () => {
         <Blog key={blog.id}
               blog={blog}
               handleLikeAddition={handleLikeAddition}
+              handleBlogRemoval={handleBlogRemoval}
+              user={user}
         />
       )}
     </div>

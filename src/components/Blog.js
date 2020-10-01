@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Blog = ({ blog, handleLikeAddition }) => {
+const Blog = ({ blog, handleLikeAddition, handleBlogRemoval, user }) => {
   const [viewInfo, setViewInfo] = useState(false);
 
   const toggleInfoVisibility = () => {
@@ -17,6 +17,14 @@ const Blog = ({ blog, handleLikeAddition }) => {
     };
 
     handleLikeAddition(updatedBlog, blog.id);
+  };
+
+  const promptRemoval = () => {
+    const result = window.confirm(`Remove blog ${blog.title} by ${blog.author}?`);
+
+    if (result) {
+      handleBlogRemoval(blog);
+    }
   };
 
   if (!viewInfo) {
@@ -45,6 +53,12 @@ const Blog = ({ blog, handleLikeAddition }) => {
 
       <br/>
       {blog.author}
+
+      <br/>
+      {blog.user.username === user.username
+        ? <button onClick={promptRemoval}>Remove</button>
+        : ''}
+
     </div>
   )
 };
