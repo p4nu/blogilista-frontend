@@ -1,4 +1,4 @@
-import React, {useImperativeHandle, useState} from 'react';
+import React, { useImperativeHandle, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Toggleable = React.forwardRef((props, ref) => {
@@ -29,7 +29,7 @@ const Toggleable = React.forwardRef((props, ref) => {
         <button onClick={toggleVisibility}>Cancel</button>
       </div>
     </div>
-  )
+  );
 });
 
 Toggleable.propTypes = {

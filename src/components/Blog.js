@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 
 const Blog = ({ blog, handleLikeAddition, handleBlogRemoval, user }) => {
   const [viewInfo, setViewInfo] = useState(false);
 
   const toggleInfoVisibility = () => {
     setViewInfo(!viewInfo);
-  }
+  };
 
   const addLike = () => {
     const updatedBlog = {
@@ -60,7 +60,7 @@ const Blog = ({ blog, handleLikeAddition, handleBlogRemoval, user }) => {
         : ''}
 
     </div>
-  )
+  );
 };
 
-export default Blog
+export default Blog;

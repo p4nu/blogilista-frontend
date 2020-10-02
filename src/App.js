@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import loginService from './services/login';
@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )
+    );
   }, []);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const App = () => {
     setTimeout(() => {
       setMessage(null);
     }, timeout);
-  }
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -57,7 +57,7 @@ const App = () => {
     } catch (exception) {
       showMessage('wrong credentials');
     }
-  }
+  };
 
   const handleLogout = () => {
     setUser(null);
@@ -76,7 +76,7 @@ const App = () => {
     } catch (exception) {
       showMessage(exception.message);
     }
-  }
+  };
 
   const handleLikeAddition = async (blog, blogId) => {
     try {
@@ -115,7 +115,7 @@ const App = () => {
     } catch (exception) {
       showMessage(exception.message);
     }
-  }
+  };
 
   if (user === null) {
     return (
@@ -125,13 +125,13 @@ const App = () => {
         <Notification message={message}/>
 
         <LoginForm handleLogin={handleLogin}
-                   username={username}
-                   setUsername={setUsername}
-                   password={password}
-                   setPassword={setPassword}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
         />
       </div>
-    )
+    );
   }
 
   return (
@@ -153,15 +153,15 @@ const App = () => {
       {blogs
         .sort((a, b) => b.likes - a.likes)
         .map(blog =>
-        <Blog key={blog.id}
-              blog={blog}
-              handleLikeAddition={handleLikeAddition}
-              handleBlogRemoval={handleBlogRemoval}
-              user={user}
-        />
-      )}
+          <Blog key={blog.id}
+            blog={blog}
+            handleLikeAddition={handleLikeAddition}
+            handleBlogRemoval={handleBlogRemoval}
+            user={user}
+          />
+        )}
     </div>
   );
-}
+};
 
-export default App
+export default App;
