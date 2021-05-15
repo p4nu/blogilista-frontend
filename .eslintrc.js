@@ -46,7 +46,8 @@ module.exports = {
     ],
     'no-console': 0,
     'react/prop-types': 0,
-    'space-in-parens': ['error', 'never']
+    'space-in-parens': ['error', 'never'],
+    'eol-last': ['error', 'always'],
   },
   'settings': {
     'react': {
