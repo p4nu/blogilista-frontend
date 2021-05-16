@@ -55,9 +55,11 @@ const Blog = ({ blog, handleLikeAddition, handleBlogRemoval, user }) => {
       {blog.author}
 
       <br/>
-      {blog.user.username === user.username
-        ? <button onClick={promptRemoval}>Remove</button>
-        : ''}
+      {
+        blog.user.username === user.username
+          ? <button onClick={promptRemoval}>Remove</button>
+          : ''
+      }
 
     </div>
   );
