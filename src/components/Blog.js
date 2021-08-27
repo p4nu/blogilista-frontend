@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Blog = ({ blog, handleLikeAddition, handleBlogRemoval, user }) => {
+const Blog = ({ blog = new Blog(), handleLikeAddition, handleBlogRemoval, user }) => {
   const [viewInfo, setViewInfo] = useState(false);
 
   const toggleInfoVisibility = () => {
