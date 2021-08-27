@@ -59,9 +59,8 @@ describe('The blog', () => {
     );
 
     userEvent.click(screen.getByText('View'));
-    userEvent.click(screen.getByText('Like'));
-    userEvent.click(screen.getByText('Like'));
+    userEvent.dblClick(screen.getByText('Like'));
 
-    expect(addLike.mock.calls).toHaveLength(2);
+    expect(addLike).toHaveBeenCalledTimes(2);
   });
 });
