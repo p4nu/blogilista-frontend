@@ -4,7 +4,7 @@ import BlogForm from './BlogForm';
 import userEvent from '@testing-library/user-event';
 
 describe('The Blog form', () => {
-  let createBlog = {};
+  const createBlog = jest.fn(() => { });
   let component;
 
   beforeEach(() => {
@@ -45,5 +45,24 @@ describe('The Blog form', () => {
     userEvent.type(urlField, 'www.testi.fi');
 
     expect(urlField).toHaveValue('www.testi.fi');
+  });
+
+  test('Will send the right details when a new blog is created', () => {
+    const titleInput = component.container.querySelector('#title');
+    const authorField = component.container.querySelector('#author');
+    const urlField = component.container.querySelector('#url');
+    const createButton = component.container.querySelector('button');
+
+    userEvent.type(titleInput, 'Title over here');
+    userEvent.type(authorField, 'Testi Testaaja');
+    userEvent.type(urlField, 'www.testaaja.vip');
+
+    userEvent.click(createButton);
+
+    expect(createBlog).toHaveBeenCalledWith({
+      title: 'Title over here',
+      author: 'Testi Testaaja',
+      url: 'www.testaaja.vip',
+    });
   });
 });
