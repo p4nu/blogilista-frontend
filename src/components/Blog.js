@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-const Blog = ({ blog = new Blog(), handleLikeAddition, handleBlogRemoval, user }) => {
-  const [viewInfo, setViewInfo] = useState(false);
+const Blog = ({
+  blog = new Blog(),
+  handleLikeAddition,
+  handleBlogRemoval,
+  user,
+}) => {
+  const [viewInfo, setViewInfo] = useState(false)
 
   const toggleInfoVisibility = () => {
-    setViewInfo(!viewInfo);
-  };
+    setViewInfo(!viewInfo)
+  }
 
   const addLike = () => {
     const updatedBlog = {
@@ -14,55 +19,49 @@ const Blog = ({ blog = new Blog(), handleLikeAddition, handleBlogRemoval, user }
       author: blog.author,
       title: blog.title,
       url: blog.url,
-    };
+    }
 
-    handleLikeAddition(updatedBlog, blog.id);
-  };
+    handleLikeAddition(updatedBlog, blog.id)
+  }
 
   const promptRemoval = () => {
-    const result = window.confirm(`Remove blog ${blog.title} by ${blog.author}?`);
+    const result = window.confirm(
+      `Remove blog ${blog.title} by ${blog.author}?`
+    )
 
     if (result) {
-      handleBlogRemoval(blog);
+      handleBlogRemoval(blog)
     }
-  };
+  }
 
   if (!viewInfo) {
     return (
       <div className='blog'>
         {blog.title} {blog.author}
-
         <button onClick={toggleInfoVisibility}>View</button>
       </div>
-    );
+    )
   }
 
   return (
     <div className='blog'>
       {blog.title} {blog.author}
-
       <button onClick={toggleInfoVisibility}>Hide</button>
-
-      <br/>
+      <br />
       {blog.url}
-
-      <br/>
+      <br />
       Likes: {blog.likes}
-
       <button onClick={addLike}>Like</button>
-
-      <br/>
+      <br />
       {blog.author}
-
-      <br/>
-      {
-        blog.user.username === user.username
-          ? <button onClick={promptRemoval}>Remove</button>
-          : ''
-      }
-
+      <br />
+      {blog.user.username === user.username ? (
+        <button onClick={promptRemoval}>Remove</button>
+      ) : (
+        ''
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog
