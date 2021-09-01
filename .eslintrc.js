@@ -1,58 +1,33 @@
 module.exports = {
-  'env': {
-    'browser': true,
-    'es6': true,
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
     'jest/globals': true,
-    'node': true
   },
-  'extends': [
+  extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'prettier',
     'plugin:cypress/recommended',
   ],
-  'parserOptions': {
-    'ecmaFeatures': {
-      'jsx': true
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    'ecmaVersion': 2018,
-    'sourceType': 'module'
+    ecmaVersion: 2018,
+    sourceType: 'module',
   },
-  'plugins': [
-    'react', 'jest', 'cypress'
-  ],
-  'rules': {
-    'indent': [
-      'error',
-      2
-    ],
-    'linebreak-style': [
-      'error',
-      'windows'
-    ],
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'semi': [
-      'error',
-      'always'
-    ],
-    'eqeqeq': 'error',
-    'no-trailing-spaces': 'error',
-    'object-curly-spacing': [
-      'error', 'always'
-    ],
-    'arrow-spacing': [
-      'error', { 'before': true, 'after': true }
-    ],
+  plugins: ['react', 'jest', 'prettier', 'cypress'],
+  rules: {
+    eqeqeq: 'error',
     'no-console': 0,
     'react/prop-types': 0,
-    'space-in-parens': ['error', 'never'],
-    'eol-last': ['error', 'always'],
+    'prettier/prettier': 'error',
   },
-  'settings': {
-    'react': {
-      'version': 'detect'
-    }
-  }
-};
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+}

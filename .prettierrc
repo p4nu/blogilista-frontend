@@ -1,0 +1,9 @@
+{
+  "tabWidth": 2,
+  "endOfLine": "crlf",
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "useTabs": false,
+  "arrowParens": "avoid"
+}
