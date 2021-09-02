@@ -63,5 +63,46 @@ describe('The Blog app', function () {
         .should('contain.text', 'Cypress is the best! Sypressi Sypressia')
         .and('contain.text', 'View')
     })
+
+    describe('When there are blogs', () => {
+      beforeEach(function () {
+        cy.request({
+          method: 'POST',
+          url: 'http://localhost:3001/api/blogs',
+          auth: {
+            bearer: JSON.parse(localStorage.getItem('loggedBlogListAppUser'))
+              .token,
+          },
+          body: {
+            author: 'Backend Cypress',
+            url: 'www.cypress.io',
+            likes: 0,
+            title: 'Cypress is the best straight to the backend!',
+          },
+        })
+      })
+
+      it('A blog can be liked', function () {
+        cy.get('#view-button').click()
+        cy.get('#like-button').click()
+
+        cy.get('.blog').should('contain.text', 'Likes: 1')
+      })
+
+      it('A blog can be deleted', function () {
+        cy.get('#view-button').click()
+        cy.get('#remove-button').click()
+
+        cy.get('html').should(
+          'not.contain.text',
+          'Cypress is the best straight to the backend! Backend Cypress'
+        )
+
+        cy.get('.notification').should(
+          'contain.text',
+          'Cypress is the best straight to the backend! by Backend Cypress deleted successfully!'
+        )
+      })
+    })
   })
 })

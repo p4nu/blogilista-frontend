@@ -38,7 +38,9 @@ const Blog = ({
     return (
       <div className='blog'>
         {blog.title} {blog.author}
-        <button onClick={toggleInfoVisibility}>View</button>
+        <button id='view-button' onClick={toggleInfoVisibility}>
+          View
+        </button>
       </div>
     )
   }
@@ -51,12 +53,16 @@ const Blog = ({
       {blog.url}
       <br />
       Likes: {blog.likes}
-      <button onClick={addLike}>Like</button>
+      <button id='like-button' onClick={addLike}>
+        Like
+      </button>
       <br />
       {blog.author}
       <br />
       {blog.user.username === user.username ? (
-        <button onClick={promptRemoval}>Remove</button>
+        <button id='remove-button' onClick={promptRemoval}>
+          Remove
+        </button>
       ) : (
         ''
       )}
