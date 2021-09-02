@@ -35,15 +35,9 @@ describe('The Blog app', function () {
 
   describe('When logged in', () => {
     beforeEach(function () {
-      cy.request('POST', 'http://localhost:3001/api/login', {
+      cy.login({
         username: 'Cypress',
         password: 'sypressia',
-      }).then(response => {
-        localStorage.setItem(
-          'loggedBlogListAppUser',
-          JSON.stringify(response.body)
-        )
-        cy.visit('http://localhost:3000')
       })
     })
 
@@ -66,19 +60,11 @@ describe('The Blog app', function () {
 
     describe('When there are blogs', () => {
       beforeEach(function () {
-        cy.request({
-          method: 'POST',
-          url: 'http://localhost:3001/api/blogs',
-          auth: {
-            bearer: JSON.parse(localStorage.getItem('loggedBlogListAppUser'))
-              .token,
-          },
-          body: {
-            author: 'Backend Cypress',
-            url: 'www.cypress.io',
-            likes: 0,
-            title: 'Cypress is the best straight to the backend!',
-          },
+        cy.newBlog({
+          author: 'Backend Cypress',
+          url: 'www.cypress.io',
+          likes: 0,
+          title: 'Cypress is the best straight to the backend!',
         })
       })
 
@@ -104,7 +90,7 @@ describe('The Blog app', function () {
         )
       })
 
-      describe('When a new user is logged in', () => {
+      describe('When a new user is added to the game', () => {
         beforeEach(function () {
           cy.request('POST', 'http://localhost:3001/api/users', {
             username: 'user2',
@@ -112,17 +98,10 @@ describe('The Blog app', function () {
             name: 'Testi Kakkonen',
           })
 
-          cy.request('POST', 'http://localhost:3001/api/login', {
+          cy.login({
             username: 'user2',
             password: 'pass2',
-          }).then(response => {
-            localStorage.setItem(
-              'loggedBlogListAppUser',
-              JSON.stringify(response.body)
-            )
           })
-
-          cy.visit('http://localhost:3000')
         })
 
         it('A blog created by another user cannot be deleted', function () {
