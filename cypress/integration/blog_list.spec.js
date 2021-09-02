@@ -103,6 +103,34 @@ describe('The Blog app', function () {
           'Cypress is the best straight to the backend! by Backend Cypress deleted successfully!'
         )
       })
+
+      describe('When a new user is logged in', () => {
+        beforeEach(function () {
+          cy.request('POST', 'http://localhost:3001/api/users', {
+            username: 'user2',
+            password: 'pass2',
+            name: 'Testi Kakkonen',
+          })
+
+          cy.request('POST', 'http://localhost:3001/api/login', {
+            username: 'user2',
+            password: 'pass2',
+          }).then(response => {
+            localStorage.setItem(
+              'loggedBlogListAppUser',
+              JSON.stringify(response.body)
+            )
+          })
+
+          cy.visit('http://localhost:3000')
+        })
+
+        it('A blog created by another user cannot be deleted', function () {
+          cy.get('#view-button').click()
+
+          cy.get('#remove-button').should('not.exist')
+        })
+      })
     })
   })
 })
