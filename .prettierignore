@@ -1,0 +1,6 @@
+#ignore artifacts:
+build
+coverage
+
+#ignore third party applications
+node_modules
