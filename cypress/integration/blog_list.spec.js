@@ -32,4 +32,36 @@ describe('The Blog app', function () {
       cy.get('.notification').should('contain.text', 'wrong credentials')
     })
   })
+
+  describe('When logged in', () => {
+    beforeEach(function () {
+      cy.request('POST', 'http://localhost:3001/api/login', {
+        username: 'Cypress',
+        password: 'sypressia',
+      }).then(response => {
+        localStorage.setItem(
+          'loggedBlogListAppUser',
+          JSON.stringify(response.body)
+        )
+        cy.visit('http://localhost:3000')
+      })
+    })
+
+    it('a blog can be created', function () {
+      cy.get('div').contains('New note').click()
+
+      cy.get('#title').type('Cypress is the best!')
+      cy.get('#author').type('Sypressi Sypressia')
+      cy.get('#url').type('www.cypress.io')
+      cy.get('#create-button').click()
+
+      cy.get('.notification').should(
+        'contain.text',
+        'A new blog Cypress is the best! by Sypressi Sypressia added!'
+      )
+      cy.get('.blog')
+        .should('contain.text', 'Cypress is the best! Sypressi Sypressia')
+        .and('contain.text', 'View')
+    })
+  })
 })
