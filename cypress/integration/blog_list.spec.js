@@ -66,6 +66,20 @@ describe('The Blog app', function () {
           likes: 0,
           title: 'Cypress is the best straight to the backend!',
         })
+        cy.newBlog({
+          author: 'Backend Cypressia',
+          url: 'www.cypress.io',
+          likes: 0,
+          title: 'Automation Magic from Cypress!',
+        })
+        cy.newBlog({
+          author: 'Backend Cypressio',
+          url: 'www.cypress.io',
+          likes: 0,
+          title: 'The magical journey of automation',
+        })
+
+        cy.visit('http://localhost:3000')
       })
 
       it('A blog can be liked', function () {
