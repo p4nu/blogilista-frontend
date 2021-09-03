@@ -104,6 +104,39 @@ describe('The Blog app', function () {
         )
       })
 
+      it('Blogs are sorted by their like count', function () {
+        cy.get('.blog').should('have.length', 3)
+        cy.contains('Automation Magic from Cypress! Backend Cypressia').within(
+          () => {
+            cy.get('#view-button').click()
+            cy.get('#like-button').click()
+          }
+        )
+
+        cy.contains(
+          'The magical journey of automation Backend Cypressio'
+        ).within(() => {
+          cy.get('#view-button').click()
+          cy.get('#like-button').click()
+
+          cy.contains('Likes: 1').then(() => {
+            cy.get('#like-button').click()
+          })
+
+          cy.contains('Likes: 2')
+        })
+
+        cy.contains(
+          'Cypress is the best straight to the backend! Backend Cypress'
+        ).within(() => {
+          cy.get('#view-button').click()
+        })
+
+        cy.get('.blog').within(() => {
+          cy.get('.like-count').invoke('text').should('deep.equal', '210')
+        })
+      })
+
       describe('When a new user is added to the game', () => {
         beforeEach(function () {
           cy.request('POST', 'http://localhost:3001/api/users', {

@@ -52,7 +52,7 @@ const Blog = ({
       <br />
       {blog.url}
       <br />
-      Likes: {blog.likes}
+      Likes: <span className='like-count'>{blog.likes}</span>
       <button id='like-button' onClick={addLike}>
         Like
       </button>
