@@ -110,6 +110,8 @@ describe('The Blog app', function () {
           () => {
             cy.get('#view-button').click()
             cy.get('#like-button').click()
+
+            cy.contains('Likes: 1')
           }
         )
 
